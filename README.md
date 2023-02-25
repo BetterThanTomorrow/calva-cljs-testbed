@@ -31,3 +31,6 @@ The extension entrypoint is `src/calva_cljs/extension.cljs`, but doesn't yet try
 5. Hit `F5` to start the extension in a new VS Code window.
 6. Run the "Hello World" command from the command palette if you want to check that the extension is working, and also if you want to connect to the extension build's repl, as this command activates the extension.
 
+## This Branch's Approach
+
+This branch aims to keep the TS at the top level and using the single calva-lib build for the CLJS, but to explore expanding the calva-lib to encompass more of the extension's source code in an ergonomic way.

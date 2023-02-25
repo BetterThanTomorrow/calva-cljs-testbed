@@ -2,19 +2,5 @@
  :builds       {:calva-lib
                 {:target    :node-library
                  :exports   {:testFunction calva.foo/test-function}
-                 :output-to "out/cljs-lib/cljs-lib.js"}
-                :extension
-                {:target :node-library
-                 :js-options {:js-provider :shadow
-                              ;; TODO: Test if this is necessary
-                              :keep-native-requires true
-                              ;; TODO: Test if this is necessary
-                              :keep-as-require #{"vscode"}}
-                 :compiler-options {:infer-externs :auto}
-                 :exports {:activate calva-cljs.extension/activate
-                           :deactivate calva-cljs.extension/deactivate}
-                 :output-dir "lib/js"
-                 :output-to "lib/main.js"
-                 :devtools {:before-load-async calva-cljs.extension/before-load-async
-                            :after-load calva-cljs.extension/after-load}}}}
+                 :output-to "out/cljs-lib/cljs-lib.js"}}}
 
