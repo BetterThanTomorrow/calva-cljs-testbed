@@ -12,12 +12,16 @@
   "activationEvents": [
     "calvacljstestbed.helloWorld"
   ],
-  "main": "./lib/main.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "calvacljstestbed.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "calvacljstestbed.callCljsLibFunction",
+        "title": "Call CLJS Lib Function"
       }
     ]
   },
