@@ -1,4 +1,5 @@
-(ns calva.foo)
+(ns calva.foo
+  (:require ["vscode" :as vscode]))
 
 (defn test-function []
-  (str "Hello from CLJS lib"))
+  (.. vscode -window (showInformationMessage "Hello from CLJS Lib----")))
