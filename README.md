@@ -11,3 +11,15 @@
 ## This Branch's Approach
 
 This branch aims to keep the TS at the top level and using the single calva-lib build for the CLJS, but to explore expanding the calva-lib to encompass more of the extension's source code in an ergonomic way.
+
+## Dynamically Exporting Vars from Namespaces
+
+If we want to avoid having to manually add exports to the shadow-cljd build config, we can have a list of namespaces for which we want to export vars, and then reduce over them, call `ns-publics` on them, and create a nested JS object that corresponds to the namespace segments, with the leaves of the object being objects with all public vars for the namespace. We can also camelCase all namespace segments and vars.
+
+```clojure
+;; Having this list, assuming calva.foo has a function called test-function...
+(def namespaces-to-export [calva.foo])
+
+;; We'd create a JS object similarly to this (minus the reduction and ns-publics call)
+(def all-exports (clj->js {'calva {'foo {'testFunction calva.foo/test-function}}}))
+```
