@@ -10,27 +10,21 @@ export function platform() {
   return os.platform();
 }
 
-export function cljsLibTestFunction() {
-  return cljsLib.testFunction("World");
-}
-
 export function showMessage(message: string) {
   void vscode.window.showInformationMessage(message);
 }
 
-function sayHello() {
-  vscode.window.showInformationMessage("Hello World!");
-}
-
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("calvacljstestbed.helloWorld", sayHello)
+    vscode.commands.registerCommand("calvacljstestbed.helloWorld", () => {
+      vscode.window.showInformationMessage("Hello World");
+    })
   );
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "calvacljstestbed.callCljsLibFunction",
       () => {
-        cljsLib.testFunction();
+        cljsLib._.calva.foo.testFunction();
       }
     )
   );
