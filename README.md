@@ -20,6 +20,22 @@ If we want to avoid having to manually add exports to the shadow-cljd build conf
 ;; Having this list, assuming calva.foo has a function called test-function...
 (def namespaces-to-export [calva.foo])
 
-;; We'd create a JS object similarly to this (minus the reduction and ns-publics call)
+;; We'd create a JS object similarly to this (but using `reduce` and `ns-publics`)
 (def all-exports (clj->js {'calva {'foo {'testFunction calva.foo/test-function}}}))
+```
+
+Then in the shadow-cljs build config, we can export a single var that points to `all-exports`.
+
+```edn
+{:deps true
+ :builds       {:calva-lib
+                {:target    :node-library
+                 :exports   {:_ calva.main/all-exports}
+                 :output-to "out/cljs-lib/cljs-lib.js"}}}
+```
+
+Then in the TS, we can call `test-function` like this:
+
+```typescript
+cljsLib._.calva.foo.testFunction();
 ```
