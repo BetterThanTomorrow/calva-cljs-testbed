@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "calvacljstestbed.callCljsLibFunction",
       () => {
-        cljsLib._.calva.foo.testFunction();
+        cljsLib.testFunction();
       }
     )
   );

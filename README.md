@@ -43,3 +43,6 @@ cljsLib._.calva.foo.testFunction();
 ## Why We Can't Use a Single :node-library Build
 
 When using a single :node-library build, we can't import `vscode` in the CLJS code because the unit-test script will fail since `vscode` can't be found.
+
+## Using a single :esm build
+
