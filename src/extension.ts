@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as os from "os";
 const foo = require("shadow-cljs/calva.foo");
+const bar = require("shadow-cljs/calva.bar");
 
 export function hello() {
   return "hello";
@@ -25,6 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
       "calvacljstestbed.callCljsLibFunction",
       () => {
         vscode.window.showInformationMessage(foo.test_function());
+        vscode.window.showInformationMessage(bar.some_var);
       }
     )
   );
