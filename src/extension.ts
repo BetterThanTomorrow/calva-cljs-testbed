@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as os from "os";
-import * as cljsLib from "../out/cljs-lib/cljs-lib.js";
+import * as cljsLib from "../cljs-lib/cljs-lib.js";
+import * as cljsExtension from "../cljs-lib/extension";
 
 export function hello() {
   return "hello";
@@ -24,7 +25,15 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "calvacljstestbed.callCljsLibFunction",
       () => {
-        cljsLib.testFunction();
+        vscode.window.showInformationMessage(cljsLib.someVar);
+      }
+    )
+  );
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "calvacljstestbed.callCljsExtensionFunction",
+      () => {
+        vscode.window.showInformationMessage(cljsExtension.testFunction());
       }
     )
   );

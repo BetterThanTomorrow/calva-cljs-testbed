@@ -46,3 +46,43 @@ When using a single :node-library build, we can't import `vscode` in the CLJS co
 
 ## Using a single :esm build
 
+We changed shadow-cljs.edn to look like:
+
+```edn
+{:deps true
+ :builds       {:calva-lib
+                {:target    :esm
+                 :runtime   :node
+                 :js-options {:js-provider :shadow
+                              :keep-native-requires true
+                              :keep-as-require #{"vscode"}}
+                 :modules {:base {:entries []}
+                           :cljs-lib {:exports {someVar calva.bar/some-var}
+                                      :depends-on #{:base}}
+                           :extension {:exports {testFunction calva.foo/test-function}
+                                       :depends-on #{:base}}}
+                 :output-dir "out/cljs-lib"}}}
+```
+
+The output for that build can't be used as it is by VS Code, so we installed esbuild as a dev dep and ran the following after the shadow-cljs build completed:
+
+```bash
+npx esbuild out/cljs-lib/cljs-lib.js out/cljs-lib/extension.js --bundle --platform=node --outdir=cljs-lib --packages=external
+```
+
+We add `--packages=external` to the esbuild command to avoid a warning about `vscode` not being found.
+
+If we import both the modules like below:
+
+```typescript
+import * as cljsLib from "../cljs-lib/cljs-lib.js";
+import * as cljsExtension from "../cljs-lib/extension";
+```
+
+AND we call functions/vars from those modules in the code, then when we run the extension and run a command which activates the extension, we get the following error in a popup:
+
+```text
+Activating extension 'undefined_publisher.calvacljstestbed' failed: Namespace "cljs.core" already declared..
+```
+
+We tried adding `:cljs-lib` to the `:depends-on` of the `:extension` module, but still had the same issue.

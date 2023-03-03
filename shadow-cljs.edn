@@ -5,8 +5,10 @@
                  :js-options {:js-provider :shadow
                               :keep-native-requires true
                               :keep-as-require #{"vscode"}}
-                 :modules {:cljs-lib {:exports {someVar calva.bar/some-var}}
+                 :modules {:base {:entries []}
+                           :cljs-lib {:exports {someVar calva.bar/some-var}
+                                      :depends-on #{:base}}
                            :extension {:exports {testFunction calva.foo/test-function}
-                                       :depends-on #{:cljs-lib}}}
+                                       :depends-on #{:base}}}
                  :output-dir "out/cljs-lib"}}}
 
