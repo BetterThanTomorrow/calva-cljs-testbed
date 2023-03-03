@@ -86,3 +86,25 @@ Activating extension 'undefined_publisher.calvacljstestbed' failed: Namespace "c
 ```
 
 We tried adding `:cljs-lib` to the `:depends-on` of the `:extension` module, but still had the same issue.
+
+## Using a single :npm-module build
+
+Using the following shadow-cljs.edn:
+
+```edn
+{:deps true
+ :builds       {:calva-lib
+                {:target    :npm-module
+                 :runtime   :node
+                 :entries [calva.foo
+                           calva.bar]
+                 :output-dir "node_modules/shadow-cljs"}}}
+```
+
+and requiring the `foo` module like this:
+
+```typescript
+const foo = require("shadow-cljs/calva.foo");
+```
+
+calling a function from `foo` works, but we don't get hot reloading when we change the CLJS code, and we cannot connect to the JS runtime with the REPL.

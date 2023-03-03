@@ -1,14 +1,8 @@
 {:deps true
  :builds       {:calva-lib
-                {:target    :esm
+                {:target    :npm-module
                  :runtime   :node
-                 :js-options {:js-provider :shadow
-                              :keep-native-requires true
-                              :keep-as-require #{"vscode"}}
-                 :modules {:base {:entries []}
-                           :cljs-lib {:exports {someVar calva.bar/some-var}
-                                      :depends-on #{:base}}
-                           :extension {:exports {testFunction calva.foo/test-function}
-                                       :depends-on #{:base}}}
-                 :output-dir "out/cljs-lib"}}}
+                 :entries [calva.foo
+                           calva.bar]
+                 :output-dir "node_modules/shadow-cljs"}}}
 

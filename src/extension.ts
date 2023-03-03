@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import * as os from "os";
-import * as cljsLib from "../cljs-lib/cljs-lib.js";
-import * as cljsExtension from "../cljs-lib/extension";
+const foo = require("shadow-cljs/calva.foo");
 
 export function hello() {
   return "hello";
@@ -25,18 +24,18 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "calvacljstestbed.callCljsLibFunction",
       () => {
-        vscode.window.showInformationMessage(cljsLib.someVar);
+        vscode.window.showInformationMessage(foo.test_function());
       }
     )
   );
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "calvacljstestbed.callCljsExtensionFunction",
-      () => {
-        vscode.window.showInformationMessage(cljsExtension.testFunction());
-      }
-    )
-  );
+  // context.subscriptions.push(
+  //   vscode.commands.registerCommand(
+  //     "calvacljstestbed.callCljsExtensionFunction",
+  //     () => {
+  //       vscode.window.showInformationMessage(cljsExtension.testFunction());
+  //     }
+  //   )
+  // );
   console.log("Calva CLJS Testbed activated");
 }
 

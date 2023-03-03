@@ -2,7 +2,7 @@
   (:require ["vscode" :as vscode]))
 
 (defn test-function []
-  (.. vscode -window (showInformationMessage "Hello from CLJS Lib----")))
+  (.. vscode -window (showInformationMessage "Hello from CLJS Lib")))
 
 (def some-var "some var")
 
