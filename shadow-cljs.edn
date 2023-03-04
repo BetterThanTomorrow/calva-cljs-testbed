@@ -1,9 +1,5 @@
 {:deps true
- :builds       {:calva-lib
-                {:target    :node-library
-                 :exports   {:testFunction calva.foo/test-function}
-                 :output-to "src/cljs-lib/out/cljs-lib.js"}
-                :extension
+ :builds       {:extension
                 {:target :node-library
                  :exports {:activate calva-cljs.extension/activate
                            :deactivate calva-cljs.extension/deactivate}
