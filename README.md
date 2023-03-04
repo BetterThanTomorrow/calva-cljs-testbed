@@ -14,6 +14,7 @@
 - [Back to using a single shadow-cljs build with :npm-module as the target (using advice from Thomas Heller)](#back-to-using-a-single-shadow-cljs-build-with-npm-module-as-the-target-using-advice-from-thomas-heller)
 - [Using :esm build target](#using-esm-build-target)
 - [Using a single :node-library build with goog imports](#using-a-single-node-library-build-with-goog-imports)
+  - [Unit testing problem](#unit-testing-problem)
 
 
 This repo serves as a testbed for getting Calva into a state in which the extension is built with shadow-cljs, so that hot reloading of the TypeScript works and so that we can start porting the extension to ClojureScript incrementally.
@@ -539,3 +540,27 @@ To run the extension:
 4. Hit `F5` to start the extension in a new VS Code window.
 5. Activate the extension by running a registered in the `calva-cljs.extension` namespace, or by opening a Clojure file
 6. Evaluate cljs code in the repl
+
+### Unit testing problem
+
+If we import the `calva.foo` namespace in `bar.ts` like so:
+
+```ts
+import foo from "goog:calva.foo";
+```
+
+and run the tests with `npm run test`, we get the following error:
+
+```text
+src/bar.ts:1:17 - error TS2307: Cannot find module 'goog:calva.foo' or its corresponding type declarations.
+
+1 import foo from "goog:calva.foo";
+```
+
+If we don't import the `goog:calva.foo` namespace in `bar.ts`, the tests run fine.
+
+If we add `// @ts-ignore` above the `goog:calva.foo` import statement, the tests run fine and the TS compilation succeeds, but we get this error:
+
+```text
+Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data are supported by the default ESM loader. Received protocol 'goog:'
+```
