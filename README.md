@@ -13,6 +13,7 @@
 - [Using two :node-library builds](#using-two-node-library-builds)
 - [Back to using a single shadow-cljs build with :npm-module as the target (using advice from Thomas Heller)](#back-to-using-a-single-shadow-cljs-build-with-npm-module-as-the-target-using-advice-from-thomas-heller)
 - [Using :esm build target](#using-esm-build-target)
+- [Using a single :node-library build with goog imports](#using-a-single-node-library-build-with-goog-imports)
 
 
 This repo serves as a testbed for getting Calva into a state in which the extension is built with shadow-cljs, so that hot reloading of the TypeScript works and so that we can start porting the extension to ClojureScript incrementally.
@@ -38,6 +39,8 @@ The extension entrypoint is `src/calva_cljs/extension.cljs`, but doesn't yet try
 - Build and run a VSIX and verify that the `Hello World` command, as mentioned above, works.
 
 ## Running the Extension
+
+These instructions may change for different methods of building the extension, and the different processes may be mentioned in the respective sections below.
 
 1. Run `npm install`.
 2. Run `npm run compile-cljs`. This must be done before running the `watch-ts` script since the TypeScript needs to be able to import the compiled CLJS from `src/cljs-lib/src/calva`.
@@ -500,3 +503,39 @@ npx esbuild public/js/main.js --bundle --platform=node --packages=external --out
 We changed the `main` property in `package.json` to `"./public/js/main.bundle.js"`.
 
 This seems to work - the `Hello World` command runs fine, but we cannot connect to the JS runtime from the repl.
+
+## Using a single :node-library build with goog imports
+
+We changed shadow-cljs.edn to look like:
+
+```edn
+{:deps true
+ :builds       {:extension
+                {:target :node-library
+                 :exports {:activate calva-cljs.extension/activate
+                           :deactivate calva-cljs.extension/deactivate}
+                 :output-dir "lib/js"
+                 :output-to "lib/main.js"
+                 :devtools {:before-load-async calva-cljs.extension/before-load-async
+                            :after-load calva-cljs.extension/after-load}}}}
+```
+
+We changed the `main` property in `package.json` to `"lib/main.js"`.
+
+We imported the `calva.foo` cljs namespace in `foo.ts` like so:
+
+```ts
+// @ts-ignore
+import foo from "goog:calva.foo";
+```
+
+We also added `onLanguage:clojure` to the activation events in `package.json` so the extension will be activated when a Clojure file is opened.
+
+To run the extension:
+
+1. Run `npm install`.
+2. Run `npm run watch-ts`. This must be done before started the shadow-cljs watch process so that the compiled TypeScript files are on the classpath and can be imported by the CLJS code in `src/calva_cljs`.
+3. Jack-in and choose shadow-cljs and the `extension` build (or copy the jack-in commmand, run it, and connect to the shadow-cljs repl).
+4. Hit `F5` to start the extension in a new VS Code window.
+5. Activate the extension by running a registered in the `calva-cljs.extension` namespace, or by opening a Clojure file
+6. Evaluate cljs code in the repl

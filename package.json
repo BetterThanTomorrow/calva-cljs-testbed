@@ -10,6 +10,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:clojure",
     "calvacljstestbed.helloWorld"
   ],
   "main": "./lib/main.js",
