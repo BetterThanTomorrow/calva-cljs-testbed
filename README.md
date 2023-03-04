@@ -13,7 +13,7 @@
 - [Using two :node-library builds](#using-two-node-library-builds)
 - [Back to using a single shadow-cljs build with :npm-module as the target (using advice from Thomas Heller)](#back-to-using-a-single-shadow-cljs-build-with-npm-module-as-the-target-using-advice-from-thomas-heller)
 - [Using :esm build target](#using-esm-build-target)
-- [Using a single :node-library build with goog imports](#using-a-single-node-library-build-with-goog-imports)
+- [Using a single :node-library build with Google Closure imports](#using-a-single-node-library-build-with-google-closure-imports)
   - [Unit testing problem](#unit-testing-problem)
 
 
@@ -505,7 +505,7 @@ We changed the `main` property in `package.json` to `"./public/js/main.bundle.js
 
 This seems to work - the `Hello World` command runs fine, but we cannot connect to the JS runtime from the repl.
 
-## Using a single :node-library build with goog imports
+## Using a single :node-library build with Google Closure imports
 
 We changed shadow-cljs.edn to look like:
 
