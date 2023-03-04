@@ -37,7 +37,6 @@
     "release-calva-lib": "npx shadow-cljs release :calva-lib",
     "watch-ts": "npx tsc --watch --project ./tsconfig.json",
     "unit-test": "npx mocha --require ts-node/register 'src/extension-test/unit/**/*-test.ts'",
-    "mocha": "mocha",
     "pretest": "npm run compile && npm run lint",
     "compile": "tsc",
     "lint": "",

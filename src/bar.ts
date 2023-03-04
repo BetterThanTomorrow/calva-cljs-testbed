@@ -1,3 +1,5 @@
+import foo from "goog:calva.foo";
+
 export function hello() {
-  return "Hello from bar.ts";
+  return foo.test_function();
 }
