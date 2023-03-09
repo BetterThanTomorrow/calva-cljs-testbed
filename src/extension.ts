@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as os from "os";
-const foo = require("shadow-cljs/calva.foo");
-const bar = require("shadow-cljs/calva.bar");
+import * as foo from "shadow-cljs/calva.foo";
+import * as bar from "shadow-cljs/calva.bar";
 
 export function hello() {
   return "hello";
