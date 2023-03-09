@@ -1,4 +1,4 @@
-{:deps {thheller/shadow-cljs {:mvn/version "2.20.2"}}
+{:deps {thheller/shadow-cljs {:mvn/version "2.22.0"}}
  :paths ["src/cljs-lib/src"
          "src/cljs-lib/test"
          "src"

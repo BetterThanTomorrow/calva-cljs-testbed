@@ -5,4 +5,3 @@
                  :entries [calva.foo
                            calva.bar]
                  :output-dir "node_modules/shadow-cljs"}}}
-
