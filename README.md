@@ -15,6 +15,7 @@
 - [Using :esm build target](#using-esm-build-target)
 - [Using a single :node-library build with Google Closure imports](#using-a-single-node-library-build-with-google-closure-imports)
   - [Unit testing problem](#unit-testing-problem)
+- [Using a single :npm-module build with shadow-cljs v2.22.0](#using-a-single-npm-module-build-with-shadow-cljs-v2220)
 
 This repo serves as a testbed for getting Calva into a state in which the extension is built with shadow-cljs, so that hot reloading of the TypeScript works and so that we can start porting the extension to ClojureScript incrementally.
 
@@ -563,3 +564,5 @@ If we add `// @ts-ignore` above the `goog:calva.foo` import statement, the tests
 ```text
 Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data are supported by the default ESM loader. Received protocol 'goog:'
 ```
+
+## Using a single :npm-module build with shadow-cljs v2.22.0
