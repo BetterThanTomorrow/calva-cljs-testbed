@@ -1,7 +1,7 @@
 import vscode from "vscode";
 import os from "os";
 // @ts-ignore
-import foo from "goog:calva.foo";
+import foo from "shadow-cljs/calva.foo";
 
 export function hello() {
   return "Hello from TypeScript";

@@ -1,9 +1,9 @@
 {:deps true
  :builds       {:extension
-                {:target :node-library
-                 :exports {:activate calva-cljs.extension/activate
-                           :deactivate calva-cljs.extension/deactivate}
-                 :output-dir "lib/js"
-                 :output-to "lib/main.js"
+                {:target :npm-module
+                 :runtime :node
+                 :output-dir "node_modules/shadow-cljs"
+                 :entries [calva-cljs.extension
+                           calva.foo]
                  :devtools {:before-load-async calva-cljs.extension/before-load-async
                             :after-load calva-cljs.extension/after-load}}}}
